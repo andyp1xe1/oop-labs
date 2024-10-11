@@ -1,7 +1,11 @@
 package main
 
-class Writer()
+class Greeter() {
+  fun greet(greeting: String, name: String) {
+    println(greeting +  ", " + name + "!")
+  }
+}
 
 fun main() {
-  println("hello there")
+  Greeter().greet("Hello there", "Obiwan")
 }
