@@ -18,7 +18,7 @@ It starts from a set with all the creatures, and gradually narrows down the opti
 > DescriptionSince input.json is ambiguous at id=17. 
 > Thus the user is prompted to choose from the possible races.
 
-Ro run:
+To run:
 ```sh
 cd kotlin_labs
 gradle lab0_classification_system:run
