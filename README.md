@@ -15,7 +15,7 @@ This is used to find the possible races using a creature's characteristics as in
 It starts from a set with all the creatures, and gradually narrows down the options using intersection (for planet and traits) and filter (for age and isHumanoid).
 
 > P.S.
-> DescriptionSince input.json is ambiguous at id=17. 
+> The input.json entry at id=17 is ambiguous.
 > Thus the user is prompted to choose from the possible races.
 
 To run:
