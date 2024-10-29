@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/andyp1xe1/oop-labs/go_labs/intermediate_tasks/task2/textdata"
 	"os"
+
+	"github.com/andyp1xe1/oop-labs/go_labs/intermediate_tasks/task2/textdata"
 )
 
 var fileReader = FileReader{}
