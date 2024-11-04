@@ -15,7 +15,7 @@ data class Order(
         val intensity: Intensity = Intensity.NORMAL,
         val mlOfWater: Int = 60,
         val mlOfMilk: Int = 60,
-        val syrup: Syrup = Syrup.CARAMEL,
+        val syrup: Syrup? = null,
         val mlOfSyrup: Int = 15,
         val mlOfPumpkinSpice: Int = 15,
 )
@@ -26,7 +26,7 @@ fun Order.toCoffee(): Coffee {
     CoffeeType.CAPPUCCINO -> Cappuccino(mlOfMilk, intensity)
     CoffeeType.SYRUP_CAPPUCCINO ->
             SyrupCappuccino(
-                    syrup,
+                    syrup ?: Syrup.CARAMEL,
                     mlOfSyrup,
                     intensity,
                     mlOfMilk,
@@ -50,13 +50,19 @@ object Barista {
       it.printCoffeeDetails()
       println("------------------------------")
       when (it) {
-        is Cappuccino -> it.makeCappuccino()
         is SyrupCappuccino -> it.makeSyrupCappuccino()
+        is Cappuccino -> it.makeCappuccino()
         is Americano -> it.makeAmericano()
         is PumpkinSpiceLatte -> it.makePumpkinSpiceLatte()
         else -> it.makeCoffee()
       }
       println()
     }
+  }
+
+  fun displayMenu() {
+    println("----- Coffee Menu -----")
+    CoffeeType.values().forEachIndexed { index, type -> println("${index + 1}. $type") }
+    println()
   }
 }
