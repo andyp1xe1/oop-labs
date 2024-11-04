@@ -1,16 +1,10 @@
 package lab2
 
-import coffee.Coffee
+import barista.*
+import coffee.Syrup
 
 fun main() {
-  val c = Coffee()
-  c.makeCoffee()
+  Barista.addOrder(Order(CoffeeType.COFFEE))
+  Barista.addOrder(Order(CoffeeType.SYRUP_CAPPUCCINO, syrup = Syrup.CHOCOLATE))
+  Barista.brew()
 }
-
-// import barista.*
-//
-// fun main() {
-//  Barista.addOrder(Order(CoffeeType.COFFEE))
-//  Barista.addOrder(Order(CoffeeType.SYRUP_CAPPUCCINO))
-//  Barista.brew()
-// }
