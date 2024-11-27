@@ -31,6 +31,7 @@ fun Order.toCoffee(): Coffee {
                     intensity,
                     mlOfMilk,
             )
+    CoffeeType.PUMPKIN_SPICE_LATTE -> PumpkinSpiceLatte(mlOfMilk, mlOfPumpkinSpice, intensity)
     else -> Coffee(intensity)
   }
 }
