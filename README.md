@@ -23,3 +23,21 @@ To run:
 cd kotlin_labs
 gradle lab0_classification_system:run
 ```
+
+
+## Intermediate tasks
+
+This laboratory was written in golang, and I followed "oop best practices" to the best of my abilities in such a language.
+This is because my subproject kotlin config broke, and the passing of program arguments in gradle is just horrendous (and I already knew golang)
+
+```sh
+cd ./go_labs/intermediate_tasks
+go run ./task/{1..4}
+```
+
+fyi task 2's `textdata` package has a test.
+
+```sh
+cd ./go_labs/intermediate_tasks/task2
+go test -v ./textdata
+```
