@@ -9,4 +9,5 @@ plugins { id("org.gradle.toolchains.foojay-resolver-convention") version "0.5.0"
 
 rootProject.name = "kotlin-labs"
 
+include("lab1_intermediate_tasks:task1")
 include("lab0_classification_system")
