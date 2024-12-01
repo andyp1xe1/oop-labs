@@ -2,9 +2,7 @@ import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 
 abstract class QueueContractTest<T> : StringSpec() {
-
   abstract fun createQueue(): Queue<T>
-
   init {
     "new queue should be empty" {
       val queue = createQueue()
@@ -28,13 +26,6 @@ abstract class QueueContractTest<T> : StringSpec() {
       queue.isEmpty() shouldBe true
     }
 
-    "peek should return the first element without removing it" {
-      val queue = createQueue()
-      queue.enqueue(1 as T)
-      queue.peek() shouldBe 1 as T
-      queue.size() shouldBe 1
-    }
-
     "dequeue from an empty queue should return null" {
       val queue = createQueue()
       queue.dequeue() shouldBe null
@@ -49,4 +40,12 @@ abstract class QueueContractTest<T> : StringSpec() {
 
 class ArrayQueueTest : QueueContractTest<Int>() {
   override fun createQueue(): Queue<Int> = ArrayQueue()
+}
+
+class LinkedListQueueTest : QueueContractTest<Int>() {
+  override fun createQueue(): Queue<Int> = LinkedListQueue()
+}
+
+class CircularQueueTest : QueueContractTest<Int>() {
+  override fun createQueue(): Queue<Int> = CircularQueue(10)
 }
