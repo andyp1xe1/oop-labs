@@ -18,34 +18,34 @@ class StatisticsTest :
             val robotDinner1 = RobotDinner()
             val robotDinner2 = RobotDinner()
 
-            gasStation1.refuel("car1")
-            gasStation2.refuel("car2")
-            electricStation1.refuel("car3")
-            electricStation2.refuel("car4")
+            gasStation1.refuel("car1", PassengerType.ROBOTS, 24)
+            gasStation2.refuel("car2", PassengerType.ROBOTS, 43)
+            gasStation2.refuel("car3", PassengerType.ROBOTS, 25)
+            electricStation1.refuel("car4", PassengerType.PEOPLE, 50)
+            electricStation1.refuel("car5", PassengerType.PEOPLE, 25)
+            electricStation2.refuel("car6", PassengerType.PEOPLE, 100)
+            electricStation2.refuel("car7", PassengerType.PEOPLE, 25)
 
-            peopleDinner1.serveDinner("car5")
-            peopleDinner2.serveDinner("car6")
-            robotDinner1.serveDinner("car7")
-            robotDinner2.serveDinner("car8")
+            robotDinner1.serveDinner("car1")
+            robotDinner2.serveDinner("car2")
+            robotDinner2.serveDinner("car3")
+            peopleDinner1.serveDinner("car4")
+            peopleDinner2.serveDinner("car5")
 
-            Statistics.getGasCarCount() shouldBe 2
-            Statistics.getElectricCarCount() shouldBe 2
-            Statistics.getPeopleCount() shouldBe 2
-            Statistics.getRobotCount() shouldBe 2
-          }
+            // fuel tracking testing
+            Statistics.gasCount shouldBe 3
+            Statistics.electricCount shouldBe 4
 
-          "registering different types should not affect each other" {
-            Statistics.reset()
+            // passenger tracking testing
+            Statistics.peopleCount shouldBe 4
+            Statistics.robotsCount shouldBe 3
 
-            val gasStation = GasStation()
-            val peopleDinner = PeopleDinner()
+            // consumption tracking testing
+            Statistics.gasConsumption shouldBe 92
+            Statistics.electricConsumption shouldBe 200
 
-            gasStation.refuel("car1")
-            peopleDinner.serveDinner("car2")
-
-            Statistics.getGasCarCount() shouldBe 1
-            Statistics.getPeopleCount() shouldBe 1
-            Statistics.getElectricCarCount() shouldBe 0
-            Statistics.getRobotCount() shouldBe 0
+            // dinable class testing
+            Statistics.peopleDinedCount shouldBe 2
+            Statistics.robotsDinedCount shouldBe 3
           }
         })

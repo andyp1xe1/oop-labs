@@ -1,70 +1,110 @@
 package lab3
 
 interface Dineable {
-  fun serveDinner(carId: String)
+  fun serveDinner(carID: String)
 }
 
 interface Refuelable {
-  fun refuel(carId: String)
+  fun refuel(carID: String, passengerType: PassengerType, consumption: Int)
 }
 
 class PeopleDinner : Dineable {
-  override fun serveDinner(carId: String) {
-    println("Serving dinner to people in car $carId.")
-    Statistics.register(this)
+  override fun serveDinner(carID: String) {
+    println("Serving dinner to people in car ${carID}.")
+    Statistics.registerDined(this)
   }
 }
 
 class RobotDinner : Dineable {
-  override fun serveDinner(carId: String) {
-    println("Serving dinner to robots in car $carId.")
-    Statistics.register(this)
+  override fun serveDinner(carID: String) {
+    println("Serving dinner to robots in car ${carID}.")
+    Statistics.registerDined(this)
   }
 }
 
 class ElectricStation : Refuelable {
-  override fun refuel(carId: String) {
-    println("Refueling electric car $carId.")
-    Statistics.register(this)
+  override fun refuel(carID: String, passengerType: PassengerType, consumption: Int) {
+    println("Refueling electric car ${carID}.")
+    Statistics.registerRefuled(this, consumption)
+    Statistics.registerPassengerType(passengerType)
   }
 }
 
 class GasStation : Refuelable {
-  override fun refuel(carId: String) {
-    println("Refueling gas car $carId.")
-    Statistics.register(this)
+  override fun refuel(carID: String, passengerType: PassengerType, consumption: Int) {
+    println("Refueling gas car ${carID}.")
+    Statistics.registerRefuled(this, consumption)
+    Statistics.registerPassengerType(passengerType)
   }
 }
 
 object Statistics {
-  private var electric: Int = 0
-  private var gas: Int = 0
-  private var robots: Int = 0
-  private var people: Int = 0
+  var electricCount = 0
+    private set
+  var gasCount = 0
+    private set
+  var electricConsumption = 0
+    private set
+  var gasConsumption = 0
+    private set
+  var robotsDinedCount = 0
+    private set
+  var peopleDinedCount = 0
+    private set
+  var peopleCount = 0
+    private set
+  var robotsCount = 0
+    private set
 
-  fun <T : Dineable> register(obj: T) {
+  fun registerDined(obj: Dineable) {
     when (obj) {
-      is RobotDinner -> robots++
-      is PeopleDinner -> people++
+      is RobotDinner -> robotsDinedCount++
+      is PeopleDinner -> peopleDinedCount++
     }
   }
 
-  fun <T : Refuelable> register(obj: T) {
-    when (obj) {
-      is ElectricStation -> electric++
-      is GasStation -> gas++
+  fun registerPassengerType(type: PassengerType) {
+    when {
+      type == PassengerType.PEOPLE -> peopleCount++
+      else -> robotsCount++
     }
   }
 
-  fun getElectricCarCount() = electric
-  fun getGasCarCount() = gas
-  fun getRobotCount() = robots
-  fun getPeopleCount() = people
+  fun registerRefuled(obj: Refuelable, carConsumption: Int) {
+    when (obj) {
+      is ElectricStation -> {
+        electricCount++
+        electricConsumption += carConsumption
+      }
+      is GasStation -> {
+        gasCount++
+        gasConsumption += carConsumption
+      }
+    }
+  }
+
+  fun getDinedCount() = robotsDinedCount + peopleDinedCount
+  fun getNotDinedCount() = robotsCount + peopleCount - getDinedCount()
+
+  fun printStats() {
+    println("ELECTRIC: ${electricCount}")
+    println("GAS: ${gasCount}")
+    println("PEOPLE: ${peopleCount}")
+    println("ROBOTS: ${robotsCount}")
+    println("DINING: ${getDinedCount()}")
+    println("NOT_DINING: ${getNotDinedCount()}")
+    println("ELECTRIC_CONSUMPTION: ${electricConsumption}")
+    println("GAS_CONSUMPTION: ${gasConsumption}")
+  }
 
   fun reset() {
-    electric = 0
-    gas = 0
-    robots = 0
-    people = 0
+    electricCount = 0
+    gasCount = 0
+    electricConsumption = 0
+    gasConsumption = 0
+    robotsDinedCount = 0
+    peopleDinedCount = 0
+    robotsCount = 0
+    peopleCount = 0
   }
 }

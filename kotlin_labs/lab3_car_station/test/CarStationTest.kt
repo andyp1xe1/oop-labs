@@ -10,8 +10,22 @@ class CarStationSpec :
             val carStation1 = CarStation(RobotDinner(), GasStation(), ArrayQueue())
             val carStation2 = CarStation(PeopleDinner(), ElectricStation(), ArrayQueue())
 
-            val peopleCar = Car("car1", CarType.GAS, PassengerType.PEOPLE, isDining = true)
-            val robotCar = Car("car2", CarType.ELECTRIC, PassengerType.ROBOTS, isDining = true)
+            val peopleCar =
+                    Car(
+                            "car1",
+                            CarType.GAS,
+                            PassengerType.PEOPLE,
+                            isDining = true,
+                            consumption = 50
+                    )
+            val robotCar =
+                    Car(
+                            "car2",
+                            CarType.ELECTRIC,
+                            PassengerType.ROBOTS,
+                            isDining = true,
+                            consumption = 30
+                    )
 
             shouldThrowAny { carStation1.addCar(peopleCar) }
             shouldThrowAny { carStation2.addCar(robotCar) }
@@ -24,15 +38,36 @@ class CarStationSpec :
 
             val carStation = CarStation(dinnerService, refuelingService, ArrayQueue())
 
-            val diningCar1 = Car("car1", CarType.GAS, PassengerType.PEOPLE, isDining = true)
-            val diningCar2 = Car("car2", CarType.GAS, PassengerType.PEOPLE, isDining = true)
-            val nonDiningCar = Car("car3", CarType.GAS, PassengerType.PEOPLE, isDining = false)
+            val diningCar1 =
+                    Car(
+                            "car1",
+                            CarType.GAS,
+                            PassengerType.PEOPLE,
+                            isDining = true,
+                            consumption = 30
+                    )
+            val diningCar2 =
+                    Car(
+                            "car2",
+                            CarType.GAS,
+                            PassengerType.PEOPLE,
+                            isDining = true,
+                            consumption = 40
+                    )
+            val nonDiningCar =
+                    Car(
+                            "car3",
+                            CarType.GAS,
+                            PassengerType.PEOPLE,
+                            isDining = false,
+                            consumption = 50
+                    )
 
             carStation.addCar(diningCar1)
             carStation.addCar(nonDiningCar)
             carStation.addCar(diningCar2)
 
             carStation.serveCars()
-            Statistics.getPeopleCount() shouldBe 2
+            Statistics.getDinedCount() shouldBe 2
           }
         })
