@@ -18,19 +18,19 @@ class StatisticsTest :
             val robotDinner1 = RobotDinner()
             val robotDinner2 = RobotDinner()
 
-            gasStation1.refuel("car1", PassengerType.ROBOTS, 24)
-            gasStation2.refuel("car2", PassengerType.ROBOTS, 43)
-            gasStation2.refuel("car3", PassengerType.ROBOTS, 25)
-            electricStation1.refuel("car4", PassengerType.PEOPLE, 50)
-            electricStation1.refuel("car5", PassengerType.PEOPLE, 25)
-            electricStation2.refuel("car6", PassengerType.PEOPLE, 100)
-            electricStation2.refuel("car7", PassengerType.PEOPLE, 25)
+            gasStation1.refuel(1, PassengerType.ROBOTS, 24)
+            gasStation2.refuel(2, PassengerType.ROBOTS, 43)
+            gasStation2.refuel(3, PassengerType.ROBOTS, 25)
+            electricStation1.refuel(4, PassengerType.PEOPLE, 50)
+            electricStation1.refuel(5, PassengerType.PEOPLE, 25)
+            electricStation2.refuel(6, PassengerType.PEOPLE, 100)
+            electricStation2.refuel(7, PassengerType.PEOPLE, 25)
 
-            robotDinner1.serveDinner("car1")
-            robotDinner2.serveDinner("car2")
-            robotDinner2.serveDinner("car3")
-            peopleDinner1.serveDinner("car4")
-            peopleDinner2.serveDinner("car5")
+            robotDinner1.serveDinner(1)
+            robotDinner2.serveDinner(2)
+            robotDinner2.serveDinner(3)
+            peopleDinner1.serveDinner(5)
+            peopleDinner2.serveDinner(5)
 
             // fuel tracking testing
             Statistics.gasCount shouldBe 3

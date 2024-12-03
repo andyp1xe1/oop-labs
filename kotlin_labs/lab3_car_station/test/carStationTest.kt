@@ -1,6 +1,6 @@
 package lab3
 
-import io.kotest.assertions.throwables.shouldThrowAny
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 
@@ -11,24 +11,18 @@ class CarStationSpec :
             val carStation2 = CarStation(PeopleDinner(), ElectricStation(), ArrayQueue())
 
             val peopleCar =
-                    Car(
-                            "car1",
-                            CarType.GAS,
-                            PassengerType.PEOPLE,
-                            isDining = true,
-                            consumption = 50
-                    )
+                    Car(1, CarType.GAS, PassengerType.PEOPLE, isDining = true, consumption = 50)
             val robotCar =
                     Car(
-                            "car2",
+                            2,
                             CarType.ELECTRIC,
                             PassengerType.ROBOTS,
                             isDining = true,
                             consumption = 30
                     )
 
-            shouldThrowAny { carStation1.addCar(peopleCar) }
-            shouldThrowAny { carStation2.addCar(robotCar) }
+            shouldThrow<ImpossibleToServeException> { carStation1.addCar(peopleCar) }
+            shouldThrow<ImpossibleToServeException> { carStation2.addCar(robotCar) }
           }
 
           "should serve only cars marked for dining" {
@@ -39,29 +33,11 @@ class CarStationSpec :
             val carStation = CarStation(dinnerService, refuelingService, ArrayQueue())
 
             val diningCar1 =
-                    Car(
-                            "car1",
-                            CarType.GAS,
-                            PassengerType.PEOPLE,
-                            isDining = true,
-                            consumption = 30
-                    )
+                    Car(1, CarType.GAS, PassengerType.PEOPLE, isDining = true, consumption = 30)
             val diningCar2 =
-                    Car(
-                            "car2",
-                            CarType.GAS,
-                            PassengerType.PEOPLE,
-                            isDining = true,
-                            consumption = 40
-                    )
+                    Car(2, CarType.GAS, PassengerType.PEOPLE, isDining = true, consumption = 40)
             val nonDiningCar =
-                    Car(
-                            "car3",
-                            CarType.GAS,
-                            PassengerType.PEOPLE,
-                            isDining = false,
-                            consumption = 50
-                    )
+                    Car(3, CarType.GAS, PassengerType.PEOPLE, isDining = false, consumption = 50)
 
             carStation.addCar(diningCar1)
             carStation.addCar(nonDiningCar)

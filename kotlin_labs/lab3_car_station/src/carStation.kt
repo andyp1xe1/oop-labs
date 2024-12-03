@@ -1,26 +1,35 @@
 package lab3
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
 
 class ImpossibleToServeException(message: String) : Exception(message)
 
 @Serializable
 data class Car(
-        val id: String,
+        val id: Int,
         val type: CarType,
         val passengers: PassengerType,
         val isDining: Boolean,
         val consumption: Int
 )
 
-enum class CarType {
-  ELECTRIC,
-  GAS
+fun carFromJSON(str: String): Car {
+  return Json.decodeFromString(str)
 }
 
-enum class PassengerType {
-  PEOPLE,
-  ROBOTS
+@Serializable
+enum class CarType(displayName: String) {
+  ELECTRIC("ELECTRIC"),
+  GAS("GAS");
+  val displayName = displayName
+}
+
+@Serializable
+enum class PassengerType(displayName: String) {
+  PEOPLE("PEOPLE"),
+  ROBOTS("ROBOTS");
+  val displayName = displayName
 }
 
 class CarStation(
@@ -28,6 +37,10 @@ class CarStation(
         private val refuelingService: Refuelable,
         private val queue: Queue<Car>
 ) {
+
+  fun queueSize(): Int {
+    return queue.size()
+  }
 
   fun addCar(car: Car) {
     when {

@@ -1,29 +1,29 @@
 package lab3
 
 interface Dineable {
-  fun serveDinner(carID: String)
+  fun serveDinner(carID: Int)
 }
 
 interface Refuelable {
-  fun refuel(carID: String, passengerType: PassengerType, consumption: Int)
+  fun refuel(carID: Int, passengerType: PassengerType, consumption: Int)
 }
 
 class PeopleDinner : Dineable {
-  override fun serveDinner(carID: String) {
+  override fun serveDinner(carID: Int) {
     println("Serving dinner to people in car ${carID}.")
     Statistics.registerDined(this)
   }
 }
 
 class RobotDinner : Dineable {
-  override fun serveDinner(carID: String) {
+  override fun serveDinner(carID: Int) {
     println("Serving dinner to robots in car ${carID}.")
     Statistics.registerDined(this)
   }
 }
 
 class ElectricStation : Refuelable {
-  override fun refuel(carID: String, passengerType: PassengerType, consumption: Int) {
+  override fun refuel(carID: Int, passengerType: PassengerType, consumption: Int) {
     println("Refueling electric car ${carID}.")
     Statistics.registerRefuled(this, consumption)
     Statistics.registerPassengerType(passengerType)
@@ -31,7 +31,7 @@ class ElectricStation : Refuelable {
 }
 
 class GasStation : Refuelable {
-  override fun refuel(carID: String, passengerType: PassengerType, consumption: Int) {
+  override fun refuel(carID: Int, passengerType: PassengerType, consumption: Int) {
     println("Refueling gas car ${carID}.")
     Statistics.registerRefuled(this, consumption)
     Statistics.registerPassengerType(passengerType)

@@ -1,5 +1,11 @@
 package lab3
 
-fun main() {
-  println("test")
+import kotlinx.coroutines.*
+import kotlinx.serialization.*
+import kotlinx.serialization.json.*
+
+fun main() = runBlocking {
+  Scheduler.processCarFiles()
+
+  Statistics.printStats()
 }
