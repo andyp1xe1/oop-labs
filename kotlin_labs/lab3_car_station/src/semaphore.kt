@@ -1,10 +1,10 @@
 package lab3
 
 object Semaphore {
-  val CarStationRE = CarStation(RobotDinner(), ElectricStation(), CircularQueue(30))
-  val CarStationRG = CarStation(RobotDinner(), GasStation(), CircularQueue(30))
-  val CarStationHE = CarStation(PeopleDinner(), ElectricStation(), CircularQueue(30))
-  val CarStationHG = CarStation(PeopleDinner(), GasStation(), CircularQueue(30))
+  val CarStationRE = CarStation(RobotDinner(), ElectricStation(), CircularQueue(10))
+  val CarStationRG = CarStation(RobotDinner(), GasStation(), CircularQueue(10))
+  val CarStationHE = CarStation(PeopleDinner(), ElectricStation(), ArrayQueue())
+  val CarStationHG = CarStation(PeopleDinner(), GasStation(), LinkedListQueue())
 
   fun guideCar(car: Car) {
     when {
